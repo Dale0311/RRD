@@ -6,15 +6,21 @@ import Loading from "./components/Loading";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Vans from "./pages/Vans";
-import "../db/mirageJs";
-// custom hooks
 // server
+import "../db/mirageJs";
+// react hooks
+import { useState, useEffect } from "react";
+
+// custom hooks
 import useAxios from "./hooks/useAxios";
 function App() {
   const { data, loading } = useAxios("/api/vans");
   if (loading) {
     return <Loading />;
   }
+  useEffect(() => {
+    console.log(data.vans);
+  }, []);
   return (
     <BrowserRouter>
       <header>
@@ -23,7 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/vans" element={<Vans vans={data}/>}/>
+        <Route path="/vans" element={<Vans vans={data.vans} />} />
       </Routes>
     </BrowserRouter>
   );
