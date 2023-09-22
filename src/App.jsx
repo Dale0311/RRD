@@ -18,9 +18,7 @@ function App() {
   if (loading) {
     return <Loading />;
   }
-  useEffect(() => {
-    console.log(data.vans);
-  }, []);
+
   return (
     <BrowserRouter>
       <header>
@@ -29,7 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/vans" element={<Vans vans={data.vans} />} />
+        <Route path="/vans" element={<Vans vans={data?.vans} />} />
       </Routes>
     </BrowserRouter>
   );
