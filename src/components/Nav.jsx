@@ -25,12 +25,20 @@ function Nav() {
             <nav aria-label="Global" className="hidden md:block">
               <ul className="flex items-center gap-6 text-sm">
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
-                    href="about"
+                    to="about"
                   >
                     About
-                  </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-gray-500 transition hover:text-gray-500/75"
+                    to="vans"
+                  >
+                    Vans
+                  </Link>
                 </li>
               </ul>
             </nav>

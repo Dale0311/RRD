@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: `http://www.omdbapi.com/?apikey=${process.env.VITE_API_KEY}`,
-});
-function Axios(param) {
+function useAxios(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
-    instance
-      .get(param)
+    axios
+      .get(url)
       .then((res) => {
         setData(res.data);
       })
@@ -22,9 +19,9 @@ function Axios(param) {
       .finally(() => {
         setLoading(false);
       });
-  }, [param]);
+  }, [url]);
 
   return { data, loading, error };
 }
 
-export default Axios;
+export default useAxios;
