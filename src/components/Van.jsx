@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import vanTypeColor from "../utils/vanTypeColor";
-function Van({ image, name, type, price }) {
+function Van({ image, name, type, price, id, details }) {
   // "simple", "luxury", "rugged"
   const color = vanTypeColor(type);
   return (
-    <Link className="group relative block overflow-hidden">
+    <Link className="group relative block overflow-hidden" to={`${id}`}>
       <img
         src={`${image}`}
         alt=""

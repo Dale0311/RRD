@@ -12,8 +12,9 @@ function Vans({ vans }) {
   //  * }
   const vansList = vans?.map((van) => {
     return (
-      <Van
+    <Van
         key={van.id}
+        id={van.id}
         name={van.name}
         price={van.price}
         image={van.imageUrl}
