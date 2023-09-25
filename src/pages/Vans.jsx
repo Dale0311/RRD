@@ -10,7 +10,7 @@ function Vans({ vans }) {
   //     * imageUrl: "https://assets.scrimba.com/advanced-react/react-router/modest-explorer.png",
   //     * type: "simple", "luxury", "rugged"
   //  * }
-  const vansList = vans.map((van) => {
+  const vansList = vans?.map((van) => {
     return (
       <Van
         key={van.id}

@@ -6,6 +6,7 @@ import Loading from "./components/Loading";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Vans from "./pages/Vans";
+import VanDetail from "./pages/VanDetail";
 // server
 import "../db/mirageJs";
 // react hooks
@@ -26,8 +27,9 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/vans" element={<Vans vans={data?.vans} />} />
+        <Route path="about" element={<About />} />
+        <Route path="vans" element={<Vans vans={data?.vans} />} />
+        <Route path="vans/:id" element={<VanDetail />} />
       </Routes>
     </BrowserRouter>
   );
