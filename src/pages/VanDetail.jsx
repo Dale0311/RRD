@@ -12,24 +12,34 @@ function VanDetail() {
     return <Loading />;
   }
   return (
-    <div>
+    <div className="container mx-auto lg:w-1/2 mt-5">
       {van && (
         <>
           <img
             src={`${van.imageUrl}`}
             alt=""
-            className="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
+            className="h-80 w-full object-cover bg-right"
           />
-          <div className="relative border border-gray-100 bg-white p-1">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xl font-semibold text-gray-900">
+          <div className="relative border border-gray-100 bg-white p-5 md:p-0 space-y-4">
+            <p
+              className={`mt-2 py-2 px-4 max-w-min rounded text-white`}
+              style={{ backgroundColor: vanTypeColor(van.type) }}
+            >
+              {van.type}
+            </p>
+            <div className="flex flex-col">
+              <h3 className="text-xl md:text-3xl font-semibold text-gray-900">
                 {van.name}
               </h3>
-              <div className="text-gray-700 font-bold flex flex-col">
-                ${van.price} / <span className="text-sm font-medium">Day</span>
+              <div className="text-gray-700 font-bold text-xl">
+                ${van.price}{" "}
+                <span className=" text-sm font-semibold">/ Day</span>
               </div>
             </div>
-            <p className={`mt-1.5 py-2 px-4 rounded text-white`}>{van.type}</p>
+            <p className="text-lg">{van.description}</p>
+            <button className="py-2 px-4 w-full text-white rounded font-semibold bg-[#FF8C39]">
+              Rent this van
+            </button>
           </div>
         </>
       )}

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // components
 import Nav from "./components/Nav";
 import Loading from "./components/Loading";
+import Layout from "./components/Layout";
 // pages
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -22,14 +23,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      <header>
-        <Nav />
-      </header>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="vans" element={<Vans vans={data?.vans} />} />
-        <Route path="vans/:id" element={<VanDetail />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="vans" element={<Vans vans={data?.vans} />} />
+          <Route path="vans/:id" element={<VanDetail />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
