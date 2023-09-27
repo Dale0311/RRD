@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 function Nav() {
+  const active = { color: "#1F2937" };
   return (
     <header className="bg-white">
-      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto container px-4 sm:p-0">
         <div className="flex h-16 items-center justify-between">
           <div className="flex-1 md:flex md:items-center md:gap-12">
-            <Link className="block text-red-600" to="/">
+            <NavLink className="block text-red-600" to="/">
               <span className="sr-only">Home</span>
               <svg
                 className="h-8"
@@ -18,27 +19,38 @@ function Nav() {
                   fill="currentColor"
                 />
               </svg>
-            </Link>
+            </NavLink>
           </div>
 
           <div className="md:flex md:items-center md:gap-12">
             <nav aria-label="Global" className="hidden md:block">
-              <ul className="flex items-center gap-6 text-sm">
+              <ul className="flex items-center gap-6 ">
                 <li>
-                  <Link
-                    className="text-gray-500 transition hover:text-gray-500/75"
+                  <NavLink
+                    className={`text-gray-500 transition hover:text-gray-800 font-semibold`}
+                    to="host"
+                    style={({ isActive }) => (isActive ? active : null)}
+                  >
+                    Host
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="text-gray-500 transition hover:text-gray-800 font-semibold"
+                    style={({ isActive }) => (isActive ? active : null)}
                     to="about"
                   >
                     About
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link
-                    className="text-gray-500 transition hover:text-gray-500/75"
+                  <NavLink
+                    className="text-gray-500 transition hover:text-gray-800 font-semibold"
+                    style={({ isActive }) => (isActive ? active : null)}
                     to="vans"
                   >
                     Vans
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </nav>

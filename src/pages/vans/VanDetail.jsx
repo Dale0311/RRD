@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import Loading from "../components/Loading";
-import useAxios from "../hooks/useAxios";
+import Loading from "../../components/Loading";
+import useAxios from "../../hooks/useAxios";
 import React, { useState, useEffect } from "react";
-import vanTypeColor from "../utils/vanTypeColor";
+import vanTypeColor from "../../utils/vanTypeColor";
 
 function VanDetail() {
   const params = useParams();

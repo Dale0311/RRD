@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Van from "../components/Van";
+import Van from "../../components/Van";
 function Vans({ vans }) {
   //     * {
   //     * id: "1",
@@ -12,7 +12,7 @@ function Vans({ vans }) {
   //  * }
   const vansList = vans?.map((van) => {
     return (
-    <Van
+      <Van
         key={van.id}
         id={van.id}
         name={van.name}
