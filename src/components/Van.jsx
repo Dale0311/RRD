@@ -6,7 +6,10 @@ function Van({ image, name, type, price, id, searchParams }) {
     <Link
       className="group relative block overflow-hidden"
       to={`${id}`}
-      state={{ searchParams: searchParams.toString() }}
+      state={{
+        searchParams: searchParams.toString(),
+        type: searchParams.get("type"),
+      }}
     >
       <img
         src={`${image}`}

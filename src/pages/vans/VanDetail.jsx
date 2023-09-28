@@ -4,20 +4,19 @@ import useAxios from "../../hooks/useAxios";
 import vanTypeColor from "../../utils/vanTypeColor";
 
 function VanDetail() {
-  const params = useParams();
+  // url state
   const location = useLocation();
-  const {state } = location;
-  console.log(location);
+  const { state } = location;
+  const searchParam = state?.searchParams || "";
+
+  // vans data
+  const params = useParams();
   const { data } = useAxios(`/api/vans/${params?.id}`);
   const van = data?.vans;
   return (
     <div className="container mx-auto lg:w-1/2 mt-5">
-      <Link
-        to={`..?${state.searchParams}`}
-        relative="path"
-        className="p-4 md:p-0"
-      >
-        Back to all vans
+      <Link to={`..?${searchParam}`} relative="path" className="p-4 md:p-0">
+        Back to {state.type ?? "all"} vans
       </Link>
       {van && (
         <>

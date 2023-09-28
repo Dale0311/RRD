@@ -29,6 +29,7 @@ import { useState, useEffect } from "react";
 
 // custom hooks
 import useAxios from "./hooks/useAxios";
+import NotFound from "./pages/404";
 
 function App() {
   const { data, loading } = useAxios("/api/vans");
@@ -55,6 +56,7 @@ function App() {
             </Route>
             <Route path="reviews" element={<Reviews />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
