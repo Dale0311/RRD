@@ -1,16 +1,14 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Van from "../../components/Van";
 function Vans({ vans }) {
-  //     * {
-  //     * id: "1",
-  //     * name: "Modest Explorer",
-  //     * price: 60,
-  //     * description: "The Modest Explorer is a van designed to get you out of the house and into nature. This beauty is equipped with solar panels, a composting toilet, a water tank and kitchenette. The idea is that you can pack up your home and escape for a weekend or even longer!",
-  //     * imageUrl: "https://assets.scrimba.com/advanced-react/react-router/modest-explorer.png",
-  //     * type: "simple", "luxury", "rugged"
-  //  * }
-  const vansList = vans?.map((van) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const typeFilter = searchParams.get("type");
+
+  const filteredVans = !typeFilter
+    ? vans
+    : vans?.filter((van) => van.type === typeFilter);
+
+  const vansList = filteredVans?.map((van) => {
     return (
       <Van
         key={van.id}
@@ -22,8 +20,66 @@ function Vans({ vans }) {
       />
     );
   });
+
+  function urlParamHandler(key, value) {
+    setSearchParams((param) => {
+      if (!value) {
+        param.delete(key);
+      } else {
+        param.set(key, value);
+      }
+      return param;
+    });
+  }
+
   return (
     <div className="container mx-auto my-10">
+      <ul className="flex space-x-5 my-5">
+        <li>
+          <button
+            className="py-2 px-4 rounded text-gray-800"
+            onClick={() => urlParamHandler("type", "rugged")}
+            style={{
+              backgroundColor: typeFilter === "rugged" ? "#FFE9CE" : "",
+            }}
+          >
+            Rugged
+          </button>
+        </li>
+        <li>
+          <button
+            className="py-2 px-4 rounded text-gray-800"
+            onClick={() => urlParamHandler("type", "luxury")}
+            style={{
+              backgroundColor: typeFilter === "luxury" ? "#FFE9CE" : "",
+            }}
+          >
+            Luxury
+          </button>
+        </li>
+        <li>
+          <button
+            className="py-2 px-4 rounded text-gray-800"
+            onClick={() => urlParamHandler("type", "simple")}
+            style={{
+              backgroundColor: typeFilter === "simple" ? "#FFE9CE" : "",
+            }}
+          >
+            Simple
+          </button>
+        </li>
+        <li>
+          <button
+            className={`py-2 px-4 rounded text-gray-800 ${
+              !typeFilter && "underline"
+            }`}
+            onClick={() => urlParamHandler("type", null)}
+          >
+            Clear
+          </button>
+        </li>
+      </ul>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {vansList}
       </div>

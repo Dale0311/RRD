@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import vanTypeColor from "../utils/vanTypeColor";
 function Van({ image, name, type, price, id }) {
   // "simple", "luxury", "rugged"
-  const color = vanTypeColor(type);
-
   return (
     <Link className="group relative block overflow-hidden" to={`${id}`}>
       <img
@@ -19,7 +17,10 @@ function Van({ image, name, type, price, id }) {
             ${price} / <span className="text-sm font-medium">Day</span>
           </div>
         </div>
-        <p className={`mt-1.5 py-2 px-4 rounded text-white bg-${color}`}>
+        <p
+          className={`mt-1.5 py-2 px-4 rounded text-white w-min`}
+          style={{ backgroundColor: vanTypeColor(type) }}
+        >
           {type}
         </p>
       </div>

@@ -3,7 +3,7 @@ import Loading from "../../components/Loading";
 import useAxios from "../../hooks/useAxios";
 import vanTypeColor from "../../utils/vanTypeColor";
 
-function VanDetail({ hostVans = false }) {
+function VanDetail() {
   const params = useParams();
   const { data } = useAxios(`/api/vans/${params?.id}`);
   const van = data?.vans;
