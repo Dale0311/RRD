@@ -1,8 +1,10 @@
+import { useOutletContext } from "react-router-dom";
 function Photo() {
+  const van = useOutletContext();
     return (
-      <>
-        <h1>Photo here</h1>
-      </>
+      <div>
+        <img src={van.imageUrl} alt={van.name} className="w-32 h-32"/>
+      </div>
     );
   }
   

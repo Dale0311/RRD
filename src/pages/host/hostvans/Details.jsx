@@ -1,8 +1,14 @@
+import { useOutletContext } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+
 function Details() {
+  const van = useOutletContext();
+
   return (
-    <>
-      <h1>details here</h1>
-    </>
+    <div>
+      <h1 className="text-lg font-semibold">{van.name}</h1>
+      <p>{van.description}</p>
+    </div>
   );
 }
 
