@@ -1,14 +1,24 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import Loading from "../../components/Loading";
 import useAxios from "../../hooks/useAxios";
 import vanTypeColor from "../../utils/vanTypeColor";
 
 function VanDetail() {
   const params = useParams();
+  const location = useLocation();
+  const {state } = location;
+  console.log(location);
   const { data } = useAxios(`/api/vans/${params?.id}`);
   const van = data?.vans;
   return (
     <div className="container mx-auto lg:w-1/2 mt-5">
+      <Link
+        to={`..?${state.searchParams}`}
+        relative="path"
+        className="p-4 md:p-0"
+      >
+        Back to all vans
+      </Link>
       {van && (
         <>
           <img

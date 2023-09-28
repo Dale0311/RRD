@@ -17,6 +17,7 @@ function Vans({ vans }) {
         price={van.price}
         image={van.imageUrl}
         type={van.type}
+        searchParams={searchParams}
       />
     );
   });
