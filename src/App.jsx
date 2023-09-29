@@ -42,6 +42,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
           <Route path="about" element={<About />} />
           <Route path="vans" element={<Vans vans={data?.vans} />} />
           <Route path="vans/:id" element={<VanDetail />} />
@@ -56,7 +57,6 @@ function App() {
             </Route>
             <Route path="reviews" element={<Reviews />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

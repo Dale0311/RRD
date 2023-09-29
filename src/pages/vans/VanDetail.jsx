@@ -2,6 +2,7 @@ import { useParams, Link, useLocation } from "react-router-dom";
 import Loading from "../../components/Loading";
 import useAxios from "../../hooks/useAxios";
 import vanTypeColor from "../../utils/vanTypeColor";
+import React, { useState, useEffect } from "react";
 
 function VanDetail() {
   // url state
@@ -11,12 +12,15 @@ function VanDetail() {
 
   // vans data
   const params = useParams();
-  const { data } = useAxios(`/api/vans/${params?.id}`);
+  const { data, loading, error } = useAxios(`/api/vans/${params?.id}`);
   const van = data?.vans;
+  if (error) {
+    return <h1>{error}</h1>;
+  }
   return (
     <div className="container mx-auto lg:w-1/2 mt-5">
       <Link to={`..?${searchParam}`} relative="path" className="p-4 md:p-0">
-        Back to {state.type ?? "all"} vans
+        Back to {state?.type ?? "all"} vans
       </Link>
       {van && (
         <>
