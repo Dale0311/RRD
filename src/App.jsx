@@ -12,9 +12,10 @@ import HostVansLayout from "./components/HostVansLayout";
 // pages
 import Home from "./pages/Home";
 import About from "./pages/About";
+import NotFound from "./pages/404";
 
 // vans section
-import Vans from "./pages/vans/Vans";
+import Vans, { loader as vansLoader } from "./pages/vans/Vans";
 import VanDetail from "./pages/vans/VanDetail";
 
 // host section
@@ -34,7 +35,6 @@ import { useState, useEffect } from "react";
 
 // custom hooks
 import useAxios from "./hooks/useAxios";
-import NotFound from "./pages/404";
 
 function App() {
   const { data, loading } = useAxios("/api/vans");
@@ -44,7 +44,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
         <Route path="about" element={<About />} />
-        <Route path="vans" element={<Vans vans={data?.vans} />} />
+        <Route path="vans" element={<Vans />} loader={vansLoader} />
         <Route path="vans/:id" element={<VanDetail />} />
         <Route path="host" element={<HostLayout />}>
           <Route index element={<Dashboard />} />

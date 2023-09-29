@@ -1,12 +1,18 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLoaderData } from "react-router-dom";
+import fetchData from "../../utils/fetchData";
 import Van from "../../components/Van";
-function Vans({ vans }) {
+
+export function loader() {
+  return fetchData("/api/vans");
+}
+
+function Vans() {
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFilter = searchParams.get("type");
-
+  const vans = useLoaderData();
   const filteredVans = !typeFilter
-    ? vans
-    : vans?.filter((van) => van.type === typeFilter);
+    ? vans.vans
+    : vans.vans?.filter((van) => van.type === typeFilter);
 
   const vansList = filteredVans?.map((van) => {
     return (
