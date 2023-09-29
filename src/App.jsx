@@ -1,4 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route,
+} from "react-router-dom";
 // components
 import Loading from "./components/Loading";
 import Layout from "./components/Layout";
@@ -33,34 +38,73 @@ import NotFound from "./pages/404";
 
 function App() {
   const { data, loading } = useAxios("/api/vans");
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="about" element={<About />} />
+        <Route path="vans" element={<Vans vans={data?.vans} />} />
+        <Route path="vans/:id" element={<VanDetail />} />
+        <Route path="host" element={<HostLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="income" element={<Income />} />
+          <Route path="vans" element={<HostVans />} />
+          <Route path="vans/:id" element={<HostVansLayout />}>
+            <Route index element={<Details />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="photo" element={<Photo />} />
+          </Route>
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
+      </Route>
+    )
+  );
+
   if (loading) {
     return <Loading />;
   }
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="about" element={<About />} />
-          <Route path="vans" element={<Vans vans={data?.vans} />} />
-          <Route path="vans/:id" element={<VanDetail />} />
-          <Route path="host" element={<HostLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="income" element={<Income />} />
-            <Route path="vans" element={<HostVans />} />
-            <Route path="vans/:id" element={<HostVansLayout />}>
-              <Route index element={<Details />} />
-              <Route path="pricing" element={<Pricing />} />
-              <Route path="photo" element={<Photo />} />
-            </Route>
-            <Route path="reviews" element={<Reviews />} />
-          </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
+
+// challenges:
+// 1. create a Router that support data apis using createBrowserRouter, RouterProvider, createRoutesFromElements
+// 2. same, but using array of object routes instead of createRoutesFromElements
+
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Route element={<Layout />}>
+//       <Route path="/" element={<Home />} />
+//       <Route path="*" element={<NotFound />} />
+//       <Route path="about" element={<About />} />
+//       <Route path="vans" element={<Vans vans={data?.vans} />} />
+//       <Route path="vans/:id" element={<VanDetail />} />
+//       <Route path="host" element={<HostLayout />}>
+//         <Route index element={<Dashboard />} />
+//         <Route path="income" element={<Income />} />
+//         <Route path="vans" element={<HostVans />} />
+//         <Route path="vans/:id" element={<HostVansLayout />}>
+//           <Route index element={<Details />} />
+//           <Route path="pricing" element={<Pricing />} />
+//           <Route path="photo" element={<Photo />} />
+//         </Route>
+//         <Route path="reviews" element={<Reviews />} />
+//       </Route>
+//     </Route>
+//   )
+// );
+// challenge #2 done, but still lot to learn from here.
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Home />,
+
+//   },
+//   {
+//     path: "about",
+//     element: <About />,
+//   },
+// ]);
