@@ -40,16 +40,11 @@ import useAxios from "./hooks/useAxios";
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route element={<Layout />}>
+      <Route element={<Layout />} errorElement={<Error />}>
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
         <Route path="about" element={<About />} />
-        <Route
-          path="vans"
-          element={<Vans />}
-          loader={vansLoader}
-          errorElement={Error}
-        />
+        <Route path="vans" element={<Vans />} loader={vansLoader} />
         <Route path="vans/:id" element={<VanDetail />} />
         <Route path="host" element={<HostLayout />}>
           <Route index element={<Dashboard />} />
