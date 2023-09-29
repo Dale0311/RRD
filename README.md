@@ -46,3 +46,10 @@ link: https://bespoke-griffin-2cd366.netlify.app
 <b>syntax to 5-6:</b>
 import {useLoaderData} from "react-router-dom"
 const data = useLoaderData();
+
+### creating an error handler in createBrowserRouter
+
+1. create a component that render whenever error occured
+2. create a errorElement prop to any of the route inside the router
+3. @error component import useRouteError and instantiate a variable
+4. display error

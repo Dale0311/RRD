@@ -1,8 +1,14 @@
 import axios from "axios";
 async function fetchData(url) {
   const res = await axios.get(url);
-  const data = await res.data;
-  return data;
+  if (!res.status === 200) {
+    throw {
+      message: "Failed to fetch vans",
+      statusText: res.statusText,
+      status: res.status,
+    };
+  }
+  return res.data;
 }
 
 export default fetchData;

@@ -13,6 +13,7 @@ import HostVansLayout from "./components/HostVansLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import NotFound from "./pages/404";
+import Error from "./pages/Error";
 
 // vans section
 import Vans, { loader as vansLoader } from "./pages/vans/Vans";
@@ -37,14 +38,18 @@ import { useState, useEffect } from "react";
 import useAxios from "./hooks/useAxios";
 
 function App() {
-  const { data, loading } = useAxios("/api/vans");
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
         <Route path="about" element={<About />} />
-        <Route path="vans" element={<Vans />} loader={vansLoader} />
+        <Route
+          path="vans"
+          element={<Vans />}
+          loader={vansLoader}
+          errorElement={Error}
+        />
         <Route path="vans/:id" element={<VanDetail />} />
         <Route path="host" element={<HostLayout />}>
           <Route index element={<Dashboard />} />
@@ -61,50 +66,7 @@ function App() {
     )
   );
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return <RouterProvider router={router} />;
 }
 
 export default App;
-
-// challenges:
-// 1. create a Router that support data apis using createBrowserRouter, RouterProvider, createRoutesFromElements
-// 2. same, but using array of object routes instead of createRoutesFromElements
-
-// const router = createBrowserRouter(
-//   createRoutesFromElements(
-//     <Route element={<Layout />}>
-//       <Route path="/" element={<Home />} />
-//       <Route path="*" element={<NotFound />} />
-//       <Route path="about" element={<About />} />
-//       <Route path="vans" element={<Vans vans={data?.vans} />} />
-//       <Route path="vans/:id" element={<VanDetail />} />
-//       <Route path="host" element={<HostLayout />}>
-//         <Route index element={<Dashboard />} />
-//         <Route path="income" element={<Income />} />
-//         <Route path="vans" element={<HostVans />} />
-//         <Route path="vans/:id" element={<HostVansLayout />}>
-//           <Route index element={<Details />} />
-//           <Route path="pricing" element={<Pricing />} />
-//           <Route path="photo" element={<Photo />} />
-//         </Route>
-//         <Route path="reviews" element={<Reviews />} />
-//       </Route>
-//     </Route>
-//   )
-// );
-// challenge #2 done, but still lot to learn from here.
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Home />,
-
-//   },
-//   {
-//     path: "about",
-//     element: <About />,
-//   },
-// ]);
