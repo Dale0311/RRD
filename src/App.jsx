@@ -8,7 +8,9 @@ import {
 import Loading from "./components/Loading";
 import Layout from "./components/Layout";
 import HostLayout from "./components/HostLayout";
-import HostVansLayout from "./components/HostVansLayout";
+import HostVansLayout, {
+  loader as hostVansLayoutLoader,
+} from "./components/HostVansLayout";
 // pages
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -17,13 +19,13 @@ import Error from "./pages/Error";
 
 // vans section
 import Vans, { loader as vansLoader } from "./pages/vans/Vans";
-import VanDetail from "./pages/vans/VanDetail";
+import VanDetail, { loader as vanDetailLoader } from "./pages/vans/VanDetail";
 
 // host section
 import Dashboard from "./pages/host/Dashboard";
 import Reviews from "./pages/host/Reviews";
 import Income from "./pages/host/Income";
-import HostVans from "./pages/host/HostVans";
+import HostVans, { loader as hostVansLoader } from "./pages/host/HostVans";
 // host vans
 import Details from "./pages/host/hostvans/Details";
 import Photo from "./pages/host/hostvans/Photo";
@@ -45,12 +47,20 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="about" element={<About />} />
         <Route path="vans" element={<Vans />} loader={vansLoader} />
-        <Route path="vans/:id" element={<VanDetail />} />
+        <Route
+          path="vans/:id"
+          element={<VanDetail />}
+          loader={vanDetailLoader}
+        />
         <Route path="host" element={<HostLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="income" element={<Income />} />
-          <Route path="vans" element={<HostVans />} />
-          <Route path="vans/:id" element={<HostVansLayout />}>
+          <Route path="vans" element={<HostVans />} loader={hostVansLoader} />
+          <Route
+            path="vans/:id"
+            element={<HostVansLayout />}
+            loader={hostVansLayoutLoader}
+          >
             <Route index element={<Details />} />
             <Route path="pricing" element={<Pricing />} />
             <Route path="photo" element={<Photo />} />

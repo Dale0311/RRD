@@ -1,12 +1,12 @@
-import useAxios from "../../hooks/useAxios";
-import Loading from "../../components/Loading";
 import Van from "../../components/Van";
-import { Link } from "react-router-dom";
-
+import { Link, useLoaderData } from "react-router-dom";
+import fetchData from "../../utils/fetchData";
+export function loader() {
+  return fetchData("/api/vans");
+}
 function HostVans() {
-  const { data } = useAxios(`/api/vans/`);
-  // const ownedVans = data?.vans;
-  const ownedVans = data?.vans.map((van) => {
+  const vans = useLoaderData();
+  const ownedVans = vans.vans.map((van) => {
     return (
       <Van
         key={van.id}
@@ -45,7 +45,7 @@ function HostVans() {
   // });
   return (
     <div className="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      {ownedVans ?? null}
+      {ownedVans}
     </div>
   );
 }

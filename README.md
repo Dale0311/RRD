@@ -38,6 +38,8 @@ link: https://bespoke-griffin-2cd366.netlify.app
 
 1. create a generic fetch/axios request
 2. create a loader fn(typically @component where want our data)
+   note: we can get params using argument
+   e.g: loader({params})
 3. import the loader fn to the parent component
 4. pass a prop called loader that takes the imported loader fn
 5. @component that needed the data, import useLoaderData from rrd

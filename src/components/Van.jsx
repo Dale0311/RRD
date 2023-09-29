@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
 import vanTypeColor from "../utils/vanTypeColor";
-function Van({ image, name, type, price, id, searchParams }) {
+function Van({ image, name, type, price, id, searchParams = null }) {
+  const state = searchParams
+    ? {
+        searchParams: searchParams.toString(),
+        type: searchParams.get("type"),
+      }
+    : null;
   // "simple", "luxury", "rugged"
   return (
     <Link
       className="group relative block overflow-hidden"
       to={`${id}`}
-      state={{
-        searchParams: searchParams.toString(),
-        type: searchParams.get("type"),
-      }}
+      state={state}
     >
       <img
         src={`${image}`}
