@@ -3,7 +3,7 @@ import Loading from "../../components/Loading";
 import useAxios from "../../hooks/useAxios";
 import vanTypeColor from "../../utils/vanTypeColor";
 import React, { useState, useEffect } from "react";
-import fetchData from "../../utils/fetchData";
+import { fetchData } from "../../utils/fetchData";
 
 export function loader({ params }) {
   return fetchData(`/api/vans/${params.id}`);

@@ -1,20 +1,41 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { loginUser } from "../utils/fetchData";
 function Login() {
   const { state } = useLocation();
   const message = state?.message;
+
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
-  function onChange(e) {
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState(null);
+
+  function handleChange(e) {
     setUser((user) => {
       const { name, value } = e.target;
       return { ...user, [name]: value };
     });
   }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setStatus("submitting");
+    setError(null);
+    loginUser(user)
+      .then((data) => console.log(data))
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => setStatus("idle"));
+  }
+
   return (
-    <form className="container p-4 xl:w-1/3 mx-auto space-y-4">
+    <form
+      className="container p-4 xl:w-1/3 mx-auto space-y-4"
+      onSubmit={(e) => handleSubmit(e)}
+    >
       <h1 className="text-lg font-bold text-center">Sign in to your account</h1>
       {message && <h2 className="text-red-500">{message}</h2>}
       <label
@@ -26,7 +47,7 @@ function Login() {
           id="name"
           placeholder="usename"
           className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-          onChange={(e) => onChange(e)}
+          onChange={(e) => handleChange(e)}
           name="username"
           value={user.username}
         />
@@ -45,7 +66,7 @@ function Login() {
           id="pass"
           placeholder="password"
           className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-          onChange={(e) => onChange(e)}
+          onChange={(e) => handleChange(e)}
           value={user.password}
         />
 
@@ -56,12 +77,8 @@ function Login() {
       <button
         type="submit"
         className="py-2 px-4 bg-[#FF8C39] text-white rounded w-full"
-        onClick={(e) => {
-          e.preventDefault();
-          console.log(user);
-        }}
       >
-        Sign in
+        {status === "submitting" ? "Submitting..." : "Sign in"}
       </button>
     </form>
   );

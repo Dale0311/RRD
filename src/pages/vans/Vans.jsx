@@ -1,5 +1,5 @@
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
-import fetchData from "../../utils/fetchData";
+import { fetchData } from "../../utils/fetchData";
 import Van from "../../components/Van";
 
 export function loader() {

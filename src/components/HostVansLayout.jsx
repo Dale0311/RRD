@@ -3,7 +3,7 @@ import HostVansNav from "./HostVansNav";
 import { Outlet, Link, useLoaderData } from "react-router-dom";
 import useAxios from "../hooks/useAxios";
 import vanTypeColor from "../utils/vanTypeColor";
-import fetchData from "../utils/fetchData";
+import { fetchData } from "../utils/fetchData";
 import requireAuth from "../utils/requireAuth";
 export async function loader({ params }) {
   await requireAuth();
