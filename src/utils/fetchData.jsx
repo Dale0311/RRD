@@ -8,4 +8,5 @@ async function fetchData(url) {
   }
 }
 
+
 export default fetchData;

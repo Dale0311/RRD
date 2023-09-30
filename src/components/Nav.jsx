@@ -52,6 +52,15 @@ function Nav() {
                     Vans
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    className="text-gray-500 transition hover:text-gray-800 font-semibold"
+                    style={({ isActive }) => (isActive ? active : null)}
+                    to="login"
+                  >
+                    Login
+                  </NavLink>
+                </li>
               </ul>
             </nav>
           </div>

@@ -4,7 +4,9 @@ import { Outlet, Link, useLoaderData } from "react-router-dom";
 import useAxios from "../hooks/useAxios";
 import vanTypeColor from "../utils/vanTypeColor";
 import fetchData from "../utils/fetchData";
-export function loader({ params }) {
+import requireAuth from "../utils/requireAuth";
+export async function loader({ params }) {
+  await requireAuth();
   return fetchData(`/api/vans/${params.id}`);
 }
 function HostVansLayout() {
