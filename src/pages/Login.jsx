@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { loginUser } from "../utils/fetchData";
+export function loader({ request }) {
+  return new URL(request.url).searchParams.get("message");
+}
 function Login() {
-  const { state } = useLocation();
-  const message = state?.message;
+  const message = useLoaderData();
 
   const [user, setUser] = useState({
     username: "",
