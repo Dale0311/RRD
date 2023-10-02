@@ -1,32 +1,43 @@
-import { Link, useSearchParams, useLoaderData } from "react-router-dom";
+import {
+  Link,
+  useSearchParams,
+  useLoaderData,
+  defer,
+  Await,
+} from "react-router-dom";
+import { Suspense } from "react";
 import { fetchData } from "../../utils/fetchData";
 import Van from "../../components/Van";
 
 export function loader() {
-  return fetchData("/api/vans");
+  return defer({ vans: fetchData("/api/vans") });
 }
 
 function Vans() {
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFilter = searchParams.get("type");
-  const vans = useLoaderData();
-  const filteredVans = !typeFilter
-    ? vans.vans
-    : vans.vans?.filter((van) => van.type === typeFilter);
+  const vansPromise = useLoaderData();
 
-  const vansList = filteredVans?.map((van) => {
-    return (
-      <Van
-        key={van.id}
-        id={van.id}
-        name={van.name}
-        price={van.price}
-        image={van.imageUrl}
-        type={van.type}
-        searchParams={searchParams}
-      />
-    );
-  });
+  function renderedVans(vans) {
+    const filteredVans = !typeFilter
+      ? vans.vans
+      : vans.vans?.filter((van) => van.type === typeFilter);
+
+    const vansList = filteredVans?.map((van) => {
+      return (
+        <Van
+          key={van.id}
+          id={van.id}
+          name={van.name}
+          price={van.price}
+          image={van.imageUrl}
+          type={van.type}
+          searchParams={searchParams}
+        />
+      );
+    });
+    return vansList;
+  }
 
   function urlParamHandler(key, value) {
     setSearchParams((param) => {
@@ -87,9 +98,17 @@ function Vans() {
         </li>
       </ul>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {vansList}
-      </div>
+      <Suspense
+        fallback={
+          <div className="flex w-full justify-center mt-40">
+            <div className="w-32 h-32 rounded-full animate-spin border-8 border-solid border-red-500 border-t-transparent"></div>
+          </div>
+        }
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <Await resolve={vansPromise.vans}>{renderedVans}</Await>
+        </div>
+      </Suspense>
     </div>
   );
 }

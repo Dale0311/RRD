@@ -1,20 +1,22 @@
 import VanDetail from "../pages/vans/VanDetail";
 import HostVansNav from "./HostVansNav";
-import { Outlet, Link, useLoaderData } from "react-router-dom";
-import useAxios from "../hooks/useAxios";
+import { Outlet, Link, useLoaderData, defer, Await } from "react-router-dom";
 import vanTypeColor from "../utils/vanTypeColor";
 import { fetchData } from "../utils/fetchData";
 import requireAuth from "../utils/requireAuth";
+import { Suspense } from "react";
+import Loading from "./Loading";
 export async function loader({ params }) {
   await requireAuth();
-  return fetchData(`/api/vans/${params.id}`);
+  return defer({ vans: fetchData(`/api/vans/${params.id}`) });
 }
 function HostVansLayout() {
-  const data = useLoaderData();
-  const van = data.vans;
-  return (
-    <div className="container mx-auto">
-      <>
+  const vanDetailPromise = useLoaderData();
+
+  function renderVanLayout(vans) {
+    const van = vans.vans;
+    return (
+      <div className="container mx-auto">
         <div>
           <Link to={`..`} relative="path" className="p-4 md:p-0">
             Back to all vans
@@ -48,8 +50,15 @@ function HostVansLayout() {
         </div>
         <HostVansNav />
         <Outlet context={van} />
-      </>
-    </div>
+      </div>
+    );
+  }
+  return (
+    <>
+      <Suspense fallback={<Loading />}>
+        <Await resolve={vanDetailPromise.vans}>{renderVanLayout}</Await>
+      </Suspense>
+    </>
   );
 }
 
