@@ -17,7 +17,10 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import NotFound from "./pages/404";
 import Error from "./pages/Error";
-import Login, {loader as loginLoader} from "./pages/Login";
+import Login, {
+  loader as loginLoader,
+  action as loginAction,
+} from "./pages/Login";
 
 // vans section
 import Vans, { loader as vansLoader } from "./pages/vans/Vans";
@@ -49,7 +52,12 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="about" element={<About />} />
         <Route path="vans" element={<Vans />} loader={vansLoader} />
-        <Route path="login" element={<Login />} loader={loginLoader}/>
+        <Route
+          path="login"
+          element={<Login />}
+          loader={loginLoader}
+          action={loginAction}
+        />
         <Route
           path="vans/:id"
           element={<VanDetail />}
