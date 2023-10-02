@@ -68,15 +68,63 @@ const data = useLoaderData();
 props:
 
 1. replace - to remove the login in the history stack
-types of redirecting:
+
+- types of redirecting:
 
 1. @fn
    redirect
    useNavigate
-2. @component
+1. @component
    Navigate
    Redirect
 
-### useNavigation 
+### useNavigation
+
 - useNavigation is use when we perform action and loader
 - we can catch the state of our action/loader
+
+#### steps on creating a redirectTo @login component
+
+1. pass a request to a requireAuth
+2. @requiredAuth get the url
+   syntax: const url = new URL(request.url).pathname;
+3. @login action/loader create a redirect
+   syntax: const url = new URL(request.url).searchParams.get("redirectTo") || '/'
+
+docs: https://scrimba.com/learn/reactrouter6/redirectto-in-vanlife-co5cc482e8e3d88fc08865c34
+
+### deferred data - is use when a fetch req in loader is slow
+
+- immidiately render the ui but not the data.
+- we can put some loading component and what not when the data is not ready
+
+- <b>keywords</b>
+
+1. defer - allows me to remove the async await in the loader fn and returns a promise instead
+   syntax: <br> const users = getUsers() <br> return defer({users})
+
+2. Await - a component that render whenever the data is ready
+   props:
+
+- resolve(loaderData)
+  children:
+- a callback fn
+
+* that takes the resolve as parameter
+* and do a logic inside it
+
+3. Suspense - lets you display a fallback until its children have finished loading.
+   it is coming from REACT not rrd
+   props:
+1. fallback - component that is rendered when the data still loads
+
+### notes:
+
+1. always insantiate new URL when dealing with query string/search params
+   syntax: const url = new URL(request.url)
+
+2. render props - a child that doesn't neccesary a jsx component
+
+# IMPORTANT: issue with redirect
+
+- it says on the yt that im following is that mirageJS(current api) and react router dom doesn't work well together soo yeaaaaaaa.
