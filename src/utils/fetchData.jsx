@@ -8,19 +8,10 @@ export async function fetchData(url) {
   }
 }
 export async function loginUser(creds) {
-  const res = await fetch("/api/login", {
-    method: "post",
-    body: JSON.stringify(creds),
-  });
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Response({
-      message: data.message,
-      statusText: res.statusText,
-      status: res.status,
-    });
+  try {
+    const res = await axios.post("/api/login", creds);
+    return res.data;
+  } catch (err) {
+    return err.message;
   }
-
-  return data;
 }

@@ -55,3 +55,28 @@ const data = useLoaderData();
 2. create a errorElement prop to any of the route inside the router
 3. @error component import useRouteError and instantiate a variable
 4. display error
+
+### action
+
+- it is the "writes" to route loader "gets"
+- normally in action fn, we use try catch block
+
+### Forms in rrd
+
+- keeps track of all the inputs and typically sends it to a action fn
+
+props:
+
+1. replace - to remove the login in the history stack
+types of redirecting:
+
+1. @fn
+   redirect
+   useNavigate
+2. @component
+   Navigate
+   Redirect
+
+### useNavigation 
+- useNavigation is use when we perform action and loader
+- we can catch the state of our action/loader

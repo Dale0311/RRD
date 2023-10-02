@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { useLoaderData, Form, useActionData } from "react-router-dom";
+import {
+  useLoaderData,
+  Form,
+  useNavigate,
+  useActionData,
+  redirect,
+} from "react-router-dom";
 import { loginUser } from "../utils/fetchData";
 export function loader({ request }) {
   return new URL(request.url).searchParams.get("message");
@@ -8,17 +14,23 @@ export async function action({ request }) {
   const formData = await request.formData();
   const username = formData.get("username");
   const password = formData.get("password");
-  console.log(username, password);
+  const data = await loginUser({ username, password });
+  if (!data?.user) {
+    return { message: "no user with those credentials" };
+  }
+  localStorage.setItem("loggedIn", true);
   return null;
 }
 
 function Login() {
   const message = useLoaderData();
   const data = useActionData();
+
   return (
     <Form className="container p-4 xl:w-1/3 mx-auto space-y-4" method="post">
-      <h1 className="text-lg font-bold text-center">Sign in to your account</h1>
+      <h1 className="text-xl font-bold text-center">Sign in to your account</h1>
       {message && <h2 className="text-red-500">{message}</h2>}
+      {data?.message && <h2 className="text-red-500">{data.message}</h2>}
       <label
         htmlFor="name"
         className="relative block overflow-hidden border-b border-gray-200 bg-transparent pt-3 focus-within:border-blue-600"

@@ -57,6 +57,9 @@ function Nav() {
                     className="text-gray-500 transition hover:text-gray-800 font-semibold"
                     style={({ isActive }) => (isActive ? active : null)}
                     to="login"
+                    onClick={() => {
+                      localStorage.clear();
+                    }}
                   >
                     Login
                   </NavLink>
